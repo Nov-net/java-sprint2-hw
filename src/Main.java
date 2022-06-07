@@ -1,3 +1,5 @@
+import src.ReadYearlyReport;
+
 import java.util.Scanner;
 
 public class Main {

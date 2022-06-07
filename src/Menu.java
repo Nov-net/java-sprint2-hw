@@ -1,3 +1,5 @@
+package src;
+
 public class Menu {
     void printMenu() {
         System.out.println("Что вы хотите сделать?");

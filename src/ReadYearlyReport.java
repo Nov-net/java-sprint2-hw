@@ -13,15 +13,15 @@ public class ReadYearlyReport {
     ReadYearlyReport () {
         yearlyData = new Integer[2][12];
         yearlyDataInitiate();
-        path = "y.2021.csv";
+        path = "y.2023.csv";
     }
 
-    void yearlyDataInitiate() {
+    void yearlyDataInitiate() { // инициируем массив
         for (Integer[] yearlyDatum : yearlyData) {
             Arrays.fill(yearlyDatum, 0);
         }
     }
-    void readYearlyData() {
+    void readYearlyData() { // разбиваем данные файла на строки и записываем данные в массив
         String[] lines = readYearFileContentsOrNull().split(System.lineSeparator());
 
         for (int i = 1; i < lines.length; i++) {
@@ -38,7 +38,7 @@ public class ReadYearlyReport {
     }
 
 
-    public String readYearFileContentsOrNull() {
+    public String readYearFileContentsOrNull() { // читаем файл годового отчета
 
         try {
             return Files.readString(Path.of(path));
@@ -49,7 +49,7 @@ public class ReadYearlyReport {
         }
     }
 
-    void printYearlyData() {
+    void printYearlyData() { // выводим данные по отчетам (сейчас не используется, оставила для проверки)
         System.out.println("Доходы и расходы в отчете за год:");
         int a = 0;
         for (int j = 0; j < yearlyData[a].length; j++) {
@@ -64,7 +64,7 @@ public class ReadYearlyReport {
         }
     }
 
-    public void readYearlyReportName(){
+    public void readYearlyReportName(){ // выводим год
         char[] chArray = path.toCharArray();
         System.out.print(chArray[2]);
         System.out.print(chArray[3]);
