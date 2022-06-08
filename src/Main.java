@@ -1,5 +1,3 @@
-import src.ReadYearlyReport;
-
 import java.util.Scanner;
 
 public class Main {
@@ -19,8 +17,6 @@ public class Main {
             switch (userInput) {
                 case 1:
                     readMonthlyReport.readMonthFileContents();
-                    readMonthlyReport.writeSumInMonthly(readMonthlyReport.allMonthlyRevenue, readMonthlyReport.monthlyRevenueData);
-                    readMonthlyReport.writeSumInMonthly(readMonthlyReport.allMonthlyExpenses, readMonthlyReport.monthlyExpensesData);
                     break;
 
                 case 2:
@@ -28,6 +24,14 @@ public class Main {
                     break;
 
                 case 3:
+                    /*
+                        И здесь нужны пояснения по комментарию:
+                        -- Обязательно надо добавить вывод ошибок если: сверка отчётов завершается неудачно,
+                        сверка начинается до того, как все данные будут обработаны.
+
+                        Эта проверка не подходит? Если данных нет, вывожу сообщение о необходимости считать или отчеты за месяц или за год
+
+                        */
                     if ((analyzeMonthlyReport.getSumFromAllMonths(readMonthlyReport.monthlyRevenueData) != 0)
                         && (analyzeMonthlyReport.getSumFromAllMonths(readMonthlyReport.monthlyExpensesData) != 0)
                         && (analyzeYearlyReport.getSumYears(readYearlyReport.yearlyData) != 0)) {

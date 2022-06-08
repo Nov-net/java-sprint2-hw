@@ -16,12 +16,15 @@ public class ReadYearlyReport {
         path = "y.2023.csv";
     }
 
-    void yearlyDataInitiate() { // инициируем массив
+    // инициируем массив
+    void yearlyDataInitiate() {
         for (Integer[] yearlyDatum : yearlyData) {
             Arrays.fill(yearlyDatum, 0);
         }
     }
-    void readYearlyData() { // разбиваем данные файла на строки и записываем данные в массив
+
+    // разбиваем данные файла на строки и записываем данные в массив
+    void readYearlyData() {
         String[] lines = readYearFileContentsOrNull().split(System.lineSeparator());
 
         for (int i = 1; i < lines.length; i++) {
@@ -37,8 +40,8 @@ public class ReadYearlyReport {
 
     }
 
-
-    public String readYearFileContentsOrNull() { // читаем файл годового отчета
+    // читаем файл годового отчета
+    public String readYearFileContentsOrNull() {
 
         try {
             return Files.readString(Path.of(path));
@@ -49,22 +52,8 @@ public class ReadYearlyReport {
         }
     }
 
-    void printYearlyData() { // выводим данные по отчетам (сейчас не используется, оставила для проверки)
-        System.out.println("Доходы и расходы в отчете за год:");
-        int a = 0;
-        for (int j = 0; j < yearlyData[a].length; j++) {
-            if ((yearlyData[0][j] + yearlyData[1][j]) != 0) {
-                System.out.println("Месяц " + (j + 1) + ": ");
-                System.out.println("Выручка:");
-                System.out.println(yearlyData[0][j] + " руб.");
-                System.out.println("Расходы:");
-                System.out.println(yearlyData[1][j] + " руб.");
-                System.out.println(" ");
-            }
-        }
-    }
-
-    public void readYearlyReportName(){ // выводим год
+    // выводим год
+    public void readYearlyReportName(){
         char[] chArray = path.toCharArray();
         System.out.print(chArray[2]);
         System.out.print(chArray[3]);

@@ -4,8 +4,8 @@ public class AnalyzeMonthlyReport {
 
     String[] monthName = {"Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"};
 
-
-    void checkReports(Integer[] monthlyData, Integer[] yearlyData1) { // сверяем годов и месячные отчеты
+    // сверяем годовой и месячные отчеты
+    void checkReports(Integer[] monthlyData, Integer[] yearlyData1) {
         String x = null;
         for (int j = 0; j < yearlyData1.length; j++) {
 
@@ -25,19 +25,19 @@ public class AnalyzeMonthlyReport {
 
     }
 
-
-    public Integer getSumFromAllMonths(Integer[] monthlyData) { // считаем сумму выручки или расходов за все месяца
+    // считаем сумму выручки или расходов за все месяца
+    public Integer getSumFromAllMonths(Integer[] monthlyData) {
         int sumFromAllMonths = 0;
         for (Integer monthlyDatum : monthlyData) {
             sumFromAllMonths += monthlyDatum;
         }
-
-        return sumFromAllMonths;
+        final int finalSumFromAllMonths = sumFromAllMonths; // добавила final
+        return finalSumFromAllMonths;
 
     }
 
-
-    public void getMaxInMonthly(HashMap<Integer, HashMap<String, Integer>> dataMonthly) { // считаем максимумальный доход и расход за месяц
+    // считаем максимальный доход и расход за месяц
+    public void getMaxInMonthly(HashMap<Integer, HashMap<String, Integer>> dataMonthly) {
 
         for (Integer month : dataMonthly.keySet()) {
             System.out.println(monthName[(month-1)] + ":");

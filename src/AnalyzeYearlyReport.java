@@ -2,29 +2,29 @@
 public class AnalyzeYearlyReport {
     String[] monthName = {"Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"};
 
-
-    public int getSumYears(Integer[][] yearlyData1) { // считаем сумму за год
+    // считаем сумму за год
+    public int getSumYears(Integer[][] yearlyData1) {
         int sum = 0;
         for (Integer[] integers : yearlyData1)
             for (Integer integer : integers) {
                 sum += integer;
             }
-
-        return sum;
+        final int sumYear = sum; // добавила final
+        return sumYear;
     }
 
-
-    public int getYearlyAverage(Integer[] yearlyData1) { // считаем среднее за год
-        int average;
+    // считаем среднее за год
+    public int getYearlyAverage(Integer[] yearlyData1) {
         int sum = 0;
         for (Integer integer : yearlyData1) {
             sum += integer;
         }
-        average = sum / yearlyData1.length;
+        final int average = sum / yearlyData1.length;
         return average;
     }
 
-    public void getAndPrintMonthlyProfit(Integer[][] yearlyData1) { // считаем прибыль по месяцам
+    // считаем прибыль по месяцам
+    public void getAndPrintMonthlyProfit(Integer[][] yearlyData1) {
         int profit;
         int j = 0;
         System.out.println("Прибыль составила: ");

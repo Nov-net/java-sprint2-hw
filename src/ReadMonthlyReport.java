@@ -16,6 +16,7 @@ public class ReadMonthlyReport {
     void monthlyDataNull(Integer[] data) {
         Arrays.fill(data, 0);
     }
+    String directory = "C:\\Users\\Katrin\\dev\\java-sprint2-hw — копия\\monthly files";
 
     ReadMonthlyReport (){
         allMonthlyRevenue = new HashMap<>();
@@ -26,152 +27,86 @@ public class ReadMonthlyReport {
         monthlyDataNull(monthlyExpensesData);
     }
 
-
-    File[] readMonthlyFileFromDirectory() { // считываем файлы в директории
-        File folder = new File("C:\\Users\\Katrin\\dev\\java-sprint2-hw — копия\\monthly files");
+    // считываем файлы в директории
+    File[] readMonthlyFileFromDirectory() {
+        File folder = new File(directory);
         return folder.listFiles();
     }
 
 
-    void parsingMonthlyReport (HashMap<String, Integer> monthlyExpenses, HashMap<String, Integer> monthlyRevenue, String[] lineContents) {
-        // считаем и записываем в массив сумму выручки и расходов по месяцам (сумма = количество * цена за штуку)
+    /*
+    Ростислав, привет!
+    По данному комментарию нужна помощь:
+    --Для классов, которые используются в HashMap'ах, необходимо переопределить hashcode и equals, чтобы избежать коллизий
 
-        if (lineContents[1].equals("TRUE")) {
-            monthlyExpenses.put(lineContents[0], (Integer.parseInt(lineContents[2])) * (Integer.parseInt(lineContents[3])));
+    Прочитала всю теорию, которую нашла, но так и не поняла, как это реализовать здесь в коде.
+     В итоге сделала, как смогла))
+     Добавила метод hashCode() и проверку equals() на hashCode()
 
-        } else {
-            monthlyRevenue.put(lineContents[0], (Integer.parseInt(lineContents[2])) * (Integer.parseInt(lineContents[3])));
-        }
+     Буду очень признательна за помощь!
+     */
+
+
+    public int hashCode(int one) {
+        return (one);
     }
 
+    // считаем и записываем в массив сумму выручки и расходов по месяцам (сумма = количество * цена за штуку)
+    void parsingMonthlyReport (HashMap<String, Integer> monthlyExpenses, HashMap<String, Integer> monthlyRevenue, String[] lineContents) {
+        int one;
+        if (lineContents[1].equals("TRUE")) {
+            one = 1;
+        } else if (lineContents[1].equals("FALSE")){
+            one = 2;
+        } else {
+            one = 3;
+        }
 
-    public void readMonthFileContents() { //считываем данные отчетов, записываем в две хеш-таблицы (выручка и расходы)
+        if (hashCode(one) == 1) {
+            monthlyExpenses.put(lineContents[0], (Integer.parseInt(lineContents[2])) * (Integer.parseInt(lineContents[3])));
+
+        } else if (hashCode(one) == 2) {
+            monthlyRevenue.put(lineContents[0], (Integer.parseInt(lineContents[2])) * (Integer.parseInt(lineContents[3])));
+        } else {
+            System.out.println("Данные равны нулю");
+        }
+
+    }
+
+    //считываем данные отчетов, записываем в две хеш-таблицы (выручка и расходы)
+    /*
+    Изменила считывание имени файла с charAt() на метод substring()
+     */
+    public void readMonthFileContents() {
 
         try {
             for (File file : readMonthlyFileFromDirectory()) {
+                fileContents = Files.readAllLines(file.toPath());
+
                 HashMap<String, Integer> monthlyRevenue = new HashMap<>();
                 HashMap<String, Integer> monthlyExpenses = new HashMap<>();
-                if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '1')) {
-                    fileContents = Files.readAllLines(file.toPath());
+                int key = Integer.parseInt(file.getName().substring(6, 8));
 
                     for (int i = 1; i < fileContents.size(); i++) {
                         String[] lineContents = fileContents.get(i).split(",");
                         parsingMonthlyReport (monthlyExpenses, monthlyRevenue, lineContents);
                     }
-                    allMonthlyRevenue.put(1,monthlyRevenue);
-                    allMonthlyExpenses.put(1,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '2')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(2,monthlyRevenue);
-                    allMonthlyExpenses.put(2,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '3')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(3,monthlyRevenue);
-                    allMonthlyExpenses.put(3,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '4')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(4,monthlyRevenue);
-                    allMonthlyExpenses.put(4,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '5')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(5,monthlyRevenue);
-                    allMonthlyExpenses.put(5,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '6')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(6,monthlyRevenue);
-                    allMonthlyExpenses.put(6,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '7')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(7,monthlyRevenue);
-                    allMonthlyExpenses.put(7,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '8')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(8,monthlyRevenue);
-                    allMonthlyExpenses.put(8,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '0') && (file.getName().charAt(7) == '9')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(9,monthlyRevenue);
-                    allMonthlyExpenses.put(9,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '1') && (file.getName().charAt(7) == '0')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(10,monthlyRevenue);
-                    allMonthlyExpenses.put(10,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '1') && (file.getName().charAt(7) == '1')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(11,monthlyRevenue);
-                    allMonthlyExpenses.put(11,monthlyExpenses);
-
-                } else if ((file.getName().charAt(6) == '1') && (file.getName().charAt(7) == '2')) {
-                    fileContents = Files.readAllLines(file.toPath());
-                    for (int i = 1; i < fileContents.size(); i++) {
-                        String[] lineContents = fileContents.get(i).split(",");
-                        parsingMonthlyReport(monthlyExpenses, monthlyRevenue, lineContents);
-                    }
-                    allMonthlyRevenue.put(12,monthlyRevenue);
-                    allMonthlyExpenses.put(12,monthlyExpenses);
-
-                }
+                allMonthlyRevenue.put(key,monthlyRevenue);
+                allMonthlyExpenses.put(key,monthlyExpenses);
             }
+            writeSumInMonthly(allMonthlyRevenue, monthlyRevenueData);
+            writeSumInMonthly(allMonthlyExpenses, monthlyExpensesData);
 
         } catch (IOException e) {
             System.out.println("Невозможно прочитать файл. Возможно, файл отсутствует.");
+            System.out.println("Проверьте наличие файла в директории " + directory);
 
         }
     }
 
-
+    //проверяем есть ли данные для сверки по месяцам, считаем общую сумму из всех файлов
     void writeSumInMonthly(HashMap<Integer, HashMap<String, Integer>> dataMonthly, Integer[] monthlyData) {
-        //проверяем есть ли данные для сверки по месяцам, считаем общую сумму из всех файлов
+
         for (Integer month : dataMonthly.keySet()) {
             HashMap<String, Integer> valueMonth = dataMonthly.get(month);
             int sumInMonthly = 0;
